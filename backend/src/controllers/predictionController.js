@@ -12,18 +12,34 @@ export const createPrediction = async (req, res) => {
       measurement_date
     } = req.body;
 
-    // ambil data anak berdasarkan user login
+    // Ambil data anak lalu verifikasi ownership secara eksplisit agar error
+    // database tidak tersamarkan sebagai "anak tidak ditemukan".
     const { data: child, error: childError } = await supabase
       .from('children')
       .select('*')
       .eq('id', child_id)
-      .eq('user_id', req.user.id)
-      .single();
+      .maybeSingle();
 
-    if (childError || !child) {
+    if (childError) {
+      console.error('CHILD LOOKUP ERROR:', childError);
+
+      return res.status(500).json({
+        success: false,
+        message: 'Gagal memeriksa data anak'
+      });
+    }
+
+    if (!child) {
       return res.status(404).json({
         success: false,
         message: 'Anak tidak ditemukan'
+      });
+    }
+
+    if (child.user_id !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: 'Data anak tidak terkait dengan akun yang sedang login'
       });
     }
 

@@ -35,6 +35,8 @@ export const login = async (
     }
   );
 
+  localStorage.removeItem("selectedChild");
+
   // simpan token
   localStorage.setItem(
     "token",
@@ -65,6 +67,7 @@ export const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("isLogin");
   localStorage.removeItem("role");
+  localStorage.removeItem("selectedChild");
 
 };
 

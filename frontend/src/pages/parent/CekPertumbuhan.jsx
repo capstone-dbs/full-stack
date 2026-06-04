@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getSelectedChild, setSelectedChild } from "../../utils/child";
 import { Button } from "../../components/common/Button";
 import { Input } from "../../components/common/Input";
@@ -25,9 +25,8 @@ function CekPertumbuhan() {
   const [alert, setAlert] = useState(null);
 
   const [children, setChildren] = useState([]);
-  const [child, setChild] = useState(() => getSelectedChild());
+  const [child, setChild] = useState(null);
   const [childrenLoading, setChildrenLoading] = useState(false);
-  const [usia, setUsia] = useState(0);
   const [tanggalPengukuran, setTanggalPengukuran] = useState("");
 
   useEffect(() => {
@@ -76,22 +75,21 @@ function CekPertumbuhan() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!child || !tanggalPengukuran) return;
+  const usia = useMemo(() => {
+    if (!child || !tanggalPengukuran) return 0;
 
-      const birthDate = new Date(child.birth_date);
-      const measureDate = new Date(tanggalPengukuran);
+    const birthDate = new Date(child.birth_date);
+    const measureDate = new Date(tanggalPengukuran);
+    let months =
+      (measureDate.getFullYear() - birthDate.getFullYear()) * 12 +
+      (measureDate.getMonth() - birthDate.getMonth());
 
-      let months =
-        (measureDate.getFullYear() - birthDate.getFullYear()) * 12 +
-        (measureDate.getMonth() - birthDate.getMonth());
+    if (measureDate.getDate() < birthDate.getDate()) {
+      months--;
+    }
 
-      if (measureDate.getDate() < birthDate.getDate()) {
-        months--;
-      }
-
-     setUsia(months);
-    }, [child, tanggalPengukuran]);
+    return months;
+  }, [child, tanggalPengukuran]);
 
   const handleSelectChild = (childId) => {
     const selectedChild = children.find((item) => item.id === childId);
@@ -419,7 +417,7 @@ function CekPertumbuhan() {
 
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={loading || childrenLoading || !child}
                 className="w-full py-5 text-lg shadow-xl"
               >
                 {loading ? (
