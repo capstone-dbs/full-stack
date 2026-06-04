@@ -121,14 +121,14 @@ function CekPertumbuhan() {
     const bbNum = parseFloat(bb);
     const tbNum = parseFloat(tb);
     
-    if (bbNum < 1 || bbNum > 500) {
-      setError("Berat badan harus antara 1 kg");
+    if (bbNum < 1 || bbNum > 30) {
+      setError("Berat badan harus antara 1 - 30 kg");
       setLoading(false);
       return;
     }
 
-    if (tbNum < 30 || tbNum > 500) {
-      setError("Tinggi badan harus antara 30 cm");
+    if (tbNum < 30 || tbNum > 130) {
+      setError("Tinggi badan harus antara 30 - 130 cm");
       setLoading(false);
       return;
     }
