@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://full-stack-inky-seven.vercel.app/'
+  baseURL: 'https://full-stack-inky-seven.vercel.app/api'
 });
 
 API.interceptors.request.use((config) => {
