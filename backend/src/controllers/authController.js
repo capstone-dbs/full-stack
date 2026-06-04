@@ -43,6 +43,9 @@ export const login = async (req, res) => {
       password
     });
 
+    console.log('DATA:', data);
+    console.log('ERROR:', error);
+
     if (error) {
       return res.status(400).json({
         success: false,
