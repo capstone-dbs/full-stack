@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const AI_BASE_URL = (
-  process.env.AI_BASE_URL || 'https://abinugroh00-stunting-model-api.hf.space'
-).replace(/\/+$/, '');
+const AI_BASE_URL = process.env.AI_BASE_URL || 'http://127.0.0.1:8000';
 
 const formatPercent = (value) => `${(Number(value || 0) * 100).toFixed(1)}%`;
 
