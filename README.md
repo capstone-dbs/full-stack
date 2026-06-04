@@ -1,4 +1,4 @@
-Copy semua file dan tambahkan 
+Copy/download pada file full stack dan ai semua file dan tambahkan 
 .env dengan isi :
 
 PORT=5000
