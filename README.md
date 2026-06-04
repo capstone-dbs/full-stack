@@ -1,5 +1,5 @@
 Copy/download pada file full-stack dan ai-enggineer
-setelah itu pada isi backend tambahkan .env
+setelah itu pada isi backend tambahkan
 .env dengan isi :
 
 PORT=5000
