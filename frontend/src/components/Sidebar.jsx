@@ -5,10 +5,11 @@ function Sidebar() {
   const navigate = useNavigate();
   
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  
-    navigate('/login');
+    if (confirm("Apakah Anda yakin ingin keluar?")) {
+      logout();
+      // Jangan gunakan localStorage.clear() karena akan menghapus database users
+      window.location.href = "/login";
+    }
   };
 
   const menuClass = ({ isActive }) =>
