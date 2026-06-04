@@ -9,6 +9,7 @@ function Sidebar() {
     localStorage.removeItem('user');
   
     navigate('/login');
+  };
 
   const menuClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3.5 rounded-2xl font-semibold transition-all duration-300 ${
