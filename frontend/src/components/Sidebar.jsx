@@ -5,12 +5,10 @@ function Sidebar() {
   const navigate = useNavigate();
   
   const handleLogout = () => {
-    if (confirm("Apakah Anda yakin ingin keluar?")) {
-      logout();
-      // Jangan gunakan localStorage.clear() karena akan menghapus database users
-      window.location.href = "/login";
-    }
-  };
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  
+    navigate('/login');
 
   const menuClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3.5 rounded-2xl font-semibold transition-all duration-300 ${
@@ -66,4 +64,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default Sidebar;
